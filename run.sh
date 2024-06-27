@@ -1,32 +1,21 @@
 #!/bin/bash
 
-# the file we want to run this on
-if [ -z "$1" ]; then
-  echo "Usage: $0 directory"
-  exit 1
-fi
+mkdir -p temp
 
-# where the results are going
-mkdir -p outputs
+# only iterate over the files marked as unfinished
+for file in $(comm -2 -3 all finished); do
 
-# for each file in a directory
-for file in "$1"*
-do
-    # create a folder to store all the outputs
+	# convert the file
+	./converter $file
+
+	# concatenate the agent results
+	cat $(fd . temp/ | sort -n -t/ -k2) > > "$file".out
+
+	# clear agent files for next iteration
+	rm -rf temp
     mkdir temp
 
-    # run the script to generate the outputs
-    ./converter "$file"
+	# mark file as finished
+	echo $file >> finished
 
-    # combine all the files in the output folder into one file of the same name
-    # https://unix.stackexchange.com/questions/118244/fastest-way-to-concatenate-files
-    cd outputs
-    fd . -d 1 -t f '*' |
-        sort -z |
-        xargs -0 cat -- >> "$(basename "$file").out"
-    mv "$(basename $file).out" ../
-    cd ..
-
-    # delete the intermediate folder
-    rm -rf outputs
-done 
+done

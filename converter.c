@@ -36,6 +36,7 @@ int main(int argc, char **argv) {
     strcat(cmd, file);
 
     FILE *fp_wc = popen(cmd, "r");
+
     int len;
     fscanf(fp_wc, "%d", &len);
 
@@ -75,7 +76,7 @@ int main(int argc, char **argv) {
     char file_path[FILENAME_MAX]; 
 
     for (int i = 0; i < num_agents; i++) {
-        sprintf(file_path, "outputs/%d", i);
+        sprintf(file_path, "temp/%d", i);
         agent_files[i] = fopen(file_path, "w");
     }
 
@@ -93,26 +94,28 @@ int main(int argc, char **argv) {
     // ...now extract the rest of them...
 
     char *action;
-    int t = 1, num_waits = 1;
+    int t = 1; //num_waits = 1;
     while ((action = strtok(NULL, ";")) != NULL) {
         sscanf(action, "%d:%c", &agent_num, &move);
 
-        num_waits = t - time_of_last_move[agent_num] - 1;
+        // num_waits = t - time_of_last_move[agent_num] - 1;
         
-        switch (num_waits) {
-            // moved last timestep
-            case 0:
-                fprintf(agent_files[agent_num], "%c", move);
-                break;
-            // moved one timestep ago, store w not 1w
-            case 1:
-                fprintf(agent_files[agent_num], "w%c", move);
-                break;
-            // moved some number of timesteps ago, store the number of them
-            default:
-                fprintf(agent_files[agent_num], "%dw%c", num_waits, move);
-                break;
-        }
+        // switch (num_waits) {
+        //     // moved last timestep
+        //     case 0:
+        //         fprintf(agent_files[agent_num], "%c", move);
+        //         break;
+        //     // moved one timestep ago, store w not 1w
+        //     case 1:
+        //         fprintf(agent_files[agent_num], "w%c", move);
+        //         break;
+        //     // moved some number of timesteps ago, store the number of them
+        //     default:
+        //         fprintf(agent_files[agent_num], "%dw%c", num_waits, move);
+        //         break;
+        // }
+
+        fprintf(agent_files[agent_num], "%c", move);
 
         time_of_last_move[agent_num] = t;
         t++;
@@ -121,6 +124,7 @@ int main(int argc, char **argv) {
     // ...and close all the files
 
     for (int i = 0; i < num_agents; i++) {
+        fprintf(agent_files[i], "%c", '\n');
         fclose(agent_files[i]);
     }
 
