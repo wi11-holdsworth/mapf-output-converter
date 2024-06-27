@@ -9,7 +9,7 @@ for file in $(comm -2 -3 all finished); do
 	./converter $file
 
 	# concatenate the agent results
-	cat $(fd . temp/ | sort -n -t/ -k2) > > "$file".out
+	cat $(fd . temp/ | sort -n -t/ -k2) > "$file".out
 
 	# clear agent files for next iteration
 	rm -rf temp
