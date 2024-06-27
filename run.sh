@@ -12,9 +12,8 @@ for file in $(comm -2 -3 all finished); do
 	cat $(fd . temp/ | sort -n -t/ -k2) > "$file".out
 
 	# clear agent files for next iteration
-	rm -rf temp
-    mkdir temp
-
+	rm temp/*
+	
 	# mark file as finished
 	echo $file >> finished
 

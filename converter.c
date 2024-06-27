@@ -94,26 +94,26 @@ int main(int argc, char **argv) {
     // ...now extract the rest of them...
 
     char *action;
-    int t = 1; //num_waits = 1;
+    int t = 1, num_waits = 1;
     while ((action = strtok(NULL, ";")) != NULL) {
         sscanf(action, "%d:%c", &agent_num, &move);
 
-        // num_waits = t - time_of_last_move[agent_num] - 1;
+        num_waits = t - time_of_last_move[agent_num] - 1;
         
-        // switch (num_waits) {
-        //     // moved last timestep
-        //     case 0:
-        //         fprintf(agent_files[agent_num], "%c", move);
-        //         break;
-        //     // moved one timestep ago, store w not 1w
-        //     case 1:
-        //         fprintf(agent_files[agent_num], "w%c", move);
-        //         break;
-        //     // moved some number of timesteps ago, store the number of them
-        //     default:
-        //         fprintf(agent_files[agent_num], "%dw%c", num_waits, move);
-        //         break;
-        // }
+        switch (num_waits) {
+            // moved last timestep
+            case 0:
+                fprintf(agent_files[agent_num], "%c", move);
+                break;
+            // moved one timestep ago, store w not 1w
+            case 1:
+                fprintf(agent_files[agent_num], "w%c", move);
+                break;
+            // moved some number of timesteps ago, store the number of them
+            default:
+                fprintf(agent_files[agent_num], "%dw%c", num_waits, move);
+                break;
+        }
 
         fprintf(agent_files[agent_num], "%c", move);
 
