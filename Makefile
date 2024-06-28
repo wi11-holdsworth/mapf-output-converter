@@ -1,8 +1,10 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Wpedantic -std=c99
 
+all: converter encoder
+
 converter: converter.c
-	$(CC) $(CFLAGS) converter.c -o converter
+encoder: encoder.c
 
 clean:
-	rm -f converter
+	rm -f converter encoder
