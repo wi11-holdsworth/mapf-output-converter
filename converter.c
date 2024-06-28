@@ -12,6 +12,8 @@
 
 #define ACTION_LEN 10
 
+// required by -Werror/-Wpedantic
+
 FILE *popen(const char *command, const char *mode);
 
 int main(int argc, char **argv) {
@@ -40,7 +42,7 @@ int main(int argc, char **argv) {
     int len;
     fscanf(fp_wc, "%d", &len);
 
-    // TODO: skip over the header
+    // skip over the header
 
     char header[HEADER_LEN + 1];
     fgets(header, HEADER_LEN, fp);
