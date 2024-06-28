@@ -1,4 +1,8 @@
+# executables
 converter
+encoder
+
+# directories
 files
 inputs
 temp
