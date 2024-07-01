@@ -117,8 +117,6 @@ int main(int argc, char **argv) {
                 break;
         }
 
-        fprintf(agent_files[agent_num], "%c", move);
-
         time_of_last_move[agent_num] = t;
         t++;
     }
