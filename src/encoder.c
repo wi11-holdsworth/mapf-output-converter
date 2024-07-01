@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
 
     char outfile_path[FILE_MAX];
     strcat(outfile_path, infile_path);
-    strcat(outfile_path, ".e");
+    strcat(outfile_path, ".enc");
 
     FILE *outfile = fopen(outfile_path, "w");
 

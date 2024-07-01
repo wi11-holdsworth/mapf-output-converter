@@ -1,11 +1,21 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Wpedantic -std=c99
+SRC_DIR = src
+EXEC_DIR = bin
 
-all: converter encoder formatter
+all: $(EXEC_DIR)/converter $(EXEC_DIR)/encoder $(EXEC_DIR)/formatter
 
-converter: converter.c
-encoder: encoder.c
-formatter: formatter.c
+$(EXEC_DIR)/converter: $(SRC_DIR)/converter.c | $(EXEC_DIR)
+	$(CC) $(CFLAGS) $< -o $@
+
+$(EXEC_DIR)/encoder: $(SRC_DIR)/encoder.c | $(EXEC_DIR)
+	$(CC) $(CFLAGS) $< -o $@
+
+$(EXEC_DIR)/formatter: $(SRC_DIR)/formatter.c | $(EXEC_DIR)
+	$(CC) $(CFLAGS) $< -o $@
+
+$(EXEC_DIR):
+	mkdir -p $(EXEC_DIR)
 
 clean:
-	rm -f converter encoder
+	rm -rf $(EXEC_DIR)

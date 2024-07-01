@@ -1,9 +1,2 @@
-# executables
-converter
-encoder
-formatter
-
-# directories
-files
-inputs
-temp
+bin
+raw
