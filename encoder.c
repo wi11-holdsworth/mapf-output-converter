@@ -4,7 +4,7 @@
 #include <ctype.h>
 
 #define FILE_MAX 255 // specified by ext4 filesystem
-#define LINE_MAX 470000
+#define LINE_MAX 290000
 
 
 /*
