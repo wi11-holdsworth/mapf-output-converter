@@ -7,7 +7,7 @@ for file in $(comm -2 -3 all finished); do
 	./encoder $file
     
     # and get rid of the old one
-    rm $file
+    # rm $file
 	
 	# mark file as finished
 	echo $file >> finished
