@@ -18,3 +18,5 @@ for file in $(comm -2 -3 all finished); do
 	echo $file >> finished
 
 done
+
+rm -rf temp
