@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define FILE_MAX 2 << 8 // ext4 file path max size
+#define FILE_MAX (2 << 7) - 2 // ext4 file path max size
 #define HEADER_MAX 1000
 #define RECORD_MAX 260000000 // wc -c over all csvs
-#define TOKS_BEFORE_LOG 5
+#define NUM_TOKS 5
 #define LINE_MAX 290000
 
 int main(int argc, char **argv) {
@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
     fgets(record, RECORD_MAX, in_csv);
     fprintf(out, "%s,", strtok(record, ","));
 
-    for (int i = 0; i < TOKS_BEFORE_LOG; i++) {
+    for (int i = 0; i < NUM_TOKS; i++) {
         fprintf(out, "%s,", strtok(NULL, ","));
     }
 

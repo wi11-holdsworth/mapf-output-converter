@@ -3,9 +3,8 @@
 #include <string.h>
 #include <ctype.h>
 
-#define FILE_MAX 255 // specified by ext4 filesystem
+#define FILE_MAX (2 << 7) - 2 // ext4 file path max size
 #define LINE_MAX 290000
-
 
 /*
     run-length encodes input `str`
