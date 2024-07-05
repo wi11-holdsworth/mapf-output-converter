@@ -11,9 +11,7 @@ int main(int argc, char const *argv[]) {
     int num_agents, i, j;
     char file_path[FILE_MAX], 
          header[HEADER_MAX], 
-         record[LINE_MAX], 
-         first_half[HEADER_MAX],
-         second_half[LINE_MAX];
+         record[LINE_MAX];
     
     if (argc < 2) {
         fprintf(stderr, "specify file to impute");
@@ -42,13 +40,7 @@ int main(int argc, char const *argv[]) {
     for (i = 1; i <= num_agents; i++) {
         for (j = 0; j < i; j++) {
             fgets(record, sizeof(record), in);
-            // extract data before num_agents
-            sscanf(record, "%[^,],%[^,],%[^,],", first_half, 
-                                                first_half + strlen(first_half),
-                                                first_half + strlen(first_half));
-            // extract data after
-            sscanf(record, "%*[^,],%*[^,],%*[^,],%*[^,],%s", second_half);
-            fprintf(out, "%s%d%s", first_half, i, second_half);
+            fprintf(out, "%s", record);
         }
         rewind(in);
         fgets(header, sizeof(header), in);
